@@ -1,0 +1,5 @@
+main: pe.bazan.TwitchApiPlugin.Spigot.Plugin
+author: Luis Bazán
+api-version: 1.13
+name: TwitchApiPlugin
+version: ${project.version}

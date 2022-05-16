@@ -1,0 +1,6 @@
+widgets:
+  helix: true
+  chat: false
+  kraken: false
+  pubsub: false
+  tmi: false
