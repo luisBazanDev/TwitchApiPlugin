@@ -2,16 +2,16 @@ package pe.bazan.TwitchApiPlugin.Spigot.TwitchEvents;
 
 import org.bukkit.Bukkit;
 import pe.bazan.TwitchApiPlugin.Spigot.CustomEvents.TwitchChannelLive;
-import pe.bazan.TwitchApiPlugin.Spigot.Plugin;
+import pe.bazan.TwitchApiPlugin.Spigot.TwitchPlugin;
 
 public class ChannelGoLive {
-  private static Plugin plugin;
+  private static TwitchPlugin twitchPlugin;
 
-  public ChannelGoLive(Plugin plugin) {
-    this.plugin = plugin;
+  public ChannelGoLive(TwitchPlugin twitchPlugin) {
+    this.twitchPlugin = twitchPlugin;
   }
 
   public static void event(com.github.twitch4j.events.ChannelGoLiveEvent e) {
-    Bukkit.getServer().getPluginManager().callEvent(new TwitchChannelLive(plugin, e));
+    Bukkit.getServer().getPluginManager().callEvent(new TwitchChannelLive(twitchPlugin, e));
   }
 }

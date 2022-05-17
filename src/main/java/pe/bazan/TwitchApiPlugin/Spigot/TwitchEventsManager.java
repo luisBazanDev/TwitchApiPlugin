@@ -1,18 +1,17 @@
 package pe.bazan.TwitchApiPlugin.Spigot;
 
 import com.github.philippheuer.events4j.core.EventManager;
-import com.github.twitch4j.TwitchClientHelper;
 import com.github.twitch4j.events.ChannelGoLiveEvent;
 import com.github.twitch4j.events.ChannelGoOfflineEvent;
 import pe.bazan.TwitchApiPlugin.Spigot.TwitchEvents.ChannelGoLive;
 import pe.bazan.TwitchApiPlugin.Spigot.TwitchEvents.ChannelOffline;
 
 public class TwitchEventsManager {
-  private Plugin plugin;
+  private TwitchPlugin twitchPlugin;
   private TwitchApiClient twitchApiClient;
 
-  public TwitchEventsManager(Plugin plugin, TwitchApiClient twitchApiClient) {
-    this.plugin = plugin;
+  public TwitchEventsManager(TwitchPlugin twitchPlugin, TwitchApiClient twitchApiClient) {
+    this.twitchPlugin = twitchPlugin;
     this.twitchApiClient = twitchApiClient;
     registerEvents();
   }

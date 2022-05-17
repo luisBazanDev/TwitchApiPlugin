@@ -7,44 +7,52 @@ import org.bukkit.configuration.ConfigurationSection;
 
 public class TwitchApiClient {
   private static TwitchClient twitchClient;
-  private Plugin plugin;
+  private TwitchPlugin twitchPlugin;
   private TwitchEventsManager eventsManager;
-  private static TwitchApiClient instance;
 
-  public TwitchApiClient (Plugin plugin) {
-    this.plugin = plugin;
-    plugin.getLogger().info("Starting client...");
+  public TwitchApiClient (TwitchPlugin twitchPlugin) {
+    this.twitchPlugin = twitchPlugin;
+    twitchPlugin.getLogger().info("Starting client...");
     initializeClient();
-    eventsManager = new TwitchEventsManager(plugin, this);
-    plugin.getLogger().info("Client started.");
-    instance = this;
+    eventsManager = new TwitchEventsManager(twitchPlugin, this);
+    joinChat("sintcraft");
+    twitchPlugin.getLogger().info("Client started.");
   }
 
   private void initializeClient() {
     TwitchClientBuilder builder = TwitchClientBuilder.builder();
-    builder.withEnableHelix(plugin.getConfig().getBoolean("widgets.helix"));
-    builder.withEnableChat(plugin.getConfig().getBoolean("widgets.chat"));
-    builder.withEnableKraken(plugin.getConfig().getBoolean("widgets.kraken"));
-    builder.withEnablePubSub(plugin.getConfig().getBoolean("widgets.pubsub"));
-    builder.withEnableTMI(plugin.getConfig().getBoolean("widgets.tmi"));
+    builder.withEnableHelix(twitchPlugin.getConfig().getBoolean("widgets.helix"));
+    builder.withEnableChat(twitchPlugin.getConfig().getBoolean("widgets.chat"));
+    builder.withEnableKraken(twitchPlugin.getConfig().getBoolean("widgets.kraken"));
+    builder.withEnablePubSub(twitchPlugin.getConfig().getBoolean("widgets.pubsub"));
+    builder.withEnableTMI(twitchPlugin.getConfig().getBoolean("widgets.tmi"));
 
-    setCredentials(builder);
+    twitchPlugin.getLogger().info(String.format("Enable helix: %s", twitchPlugin.getConfig().getBoolean("widgets.helix")));
+    twitchPlugin.getLogger().info(String.format("Enable chat: %s", twitchPlugin.getConfig().getBoolean("widgets.chat")));
+    twitchPlugin.getLogger().info(String.format("Enable kraken: %s", twitchPlugin.getConfig().getBoolean("widgets.kraken")));
+    twitchPlugin.getLogger().info(String.format("Enable pubsub: %s", twitchPlugin.getConfig().getBoolean("widgets.pubsub")));
+    twitchPlugin.getLogger().info(String.format("Enable tmi: %s", twitchPlugin.getConfig().getBoolean("widgets.tmi")));
+
+    builder = setCredentials(builder);
 
     twitchClient = builder.build();
   }
 
-  private void setCredentials(TwitchClientBuilder builder) {
-    ConfigurationSection credentials = plugin.getConfig().createSection("credentials");
+  private TwitchClientBuilder setCredentials(TwitchClientBuilder builder) {
+    ConfigurationSection credentials = twitchPlugin.getConfig().createSection("credentials");
     builder.withClientId(credentials.getString("clientId"));
     builder.withClientSecret(credentials.getString("clientId"));
-    if(plugin.getConfig().getBoolean("widgets.chat")) {
+    if(twitchPlugin.getConfig().getBoolean("widgets.chat")) {
+      twitchPlugin.getLogger().info("Chat credentials setting...");
       OAuth2Credential oAuth2Credential = new OAuth2Credential(
               credentials.getString("identityProvider"),
               credentials.getString("accessToken")
       );
       builder.withDefaultAuthToken(oAuth2Credential);
       builder.withChatAccount(oAuth2Credential);
+      twitchPlugin.getLogger().info("Chat credentials set.");
     }
+    return builder;
   }
 
   public TwitchClient getTwitchClient() {
@@ -52,18 +60,18 @@ public class TwitchApiClient {
   }
 
   public static void joinChat(String channel) {
-    twitchClient.getChat().joinChannel(channel);
+    try {
+      twitchClient.getChat().joinChannel(channel);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public static void listenStream(String channel) {
     twitchClient.getClientHelper().enableStreamEventListener(channel);
   }
 
-  public Plugin getPlugin() {
-    return plugin;
-  }
-
-  public static TwitchApiClient getInstance() {
-    return instance;
+  public TwitchPlugin getPlugin() {
+    return twitchPlugin;
   }
 }

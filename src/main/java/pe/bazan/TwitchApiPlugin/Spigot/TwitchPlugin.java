@@ -2,7 +2,7 @@ package pe.bazan.TwitchApiPlugin.Spigot;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Plugin extends JavaPlugin {
+public class TwitchPlugin extends JavaPlugin {
   private static TwitchApiClient twitchApiClient;
   @Override
   public void onLoad() {

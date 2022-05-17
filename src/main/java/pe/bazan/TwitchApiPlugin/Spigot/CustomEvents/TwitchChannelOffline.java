@@ -1,20 +1,18 @@
 package pe.bazan.TwitchApiPlugin.Spigot.CustomEvents;
 
 import com.github.twitch4j.common.events.domain.EventChannel;
-import com.github.twitch4j.events.ChannelGoLiveEvent;
 import com.github.twitch4j.events.ChannelGoOfflineEvent;
-import com.github.twitch4j.helix.domain.Stream;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import pe.bazan.TwitchApiPlugin.Spigot.Plugin;
+import pe.bazan.TwitchApiPlugin.Spigot.TwitchPlugin;
 
 public class TwitchChannelOffline extends Event {
   private static final HandlerList handlers = new HandlerList();
-  private Plugin plugin;
+  private TwitchPlugin twitchPlugin;
   private ChannelGoOfflineEvent event;
 
-  public TwitchChannelOffline(Plugin plugin, ChannelGoOfflineEvent event) {
-    this.plugin = plugin;
+  public TwitchChannelOffline(TwitchPlugin twitchPlugin, ChannelGoOfflineEvent event) {
+    this.twitchPlugin = twitchPlugin;
     this.event = event;
   }
 
@@ -22,8 +20,8 @@ public class TwitchChannelOffline extends Event {
     return event.getChannel();
   }
 
-  public Plugin getTwitchApiPlugin() {
-    return plugin;
+  public TwitchPlugin getTwitchApiPlugin() {
+    return twitchPlugin;
   }
 
   public ChannelGoOfflineEvent getEvent() {

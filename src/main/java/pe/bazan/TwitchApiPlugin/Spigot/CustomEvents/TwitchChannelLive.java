@@ -5,15 +5,15 @@ import com.github.twitch4j.events.ChannelGoLiveEvent;
 import com.github.twitch4j.helix.domain.Stream;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import pe.bazan.TwitchApiPlugin.Spigot.Plugin;
+import pe.bazan.TwitchApiPlugin.Spigot.TwitchPlugin;
 
 public class TwitchChannelLive extends Event {
   private static final HandlerList handlers = new HandlerList();
-  private Plugin plugin;
+  private TwitchPlugin twitchPlugin;
   private ChannelGoLiveEvent event;
 
-  public TwitchChannelLive(Plugin plugin, ChannelGoLiveEvent event) {
-    this.plugin = plugin;
+  public TwitchChannelLive(TwitchPlugin twitchPlugin, ChannelGoLiveEvent event) {
+    this.twitchPlugin = twitchPlugin;
     this.event = event;
   }
 
@@ -29,8 +29,8 @@ public class TwitchChannelLive extends Event {
     return event.getChannel();
   }
 
-  public Plugin getTwitchApiPlugin() {
-    return plugin;
+  public TwitchPlugin getTwitchApiPlugin() {
+    return twitchPlugin;
   }
 
   public ChannelGoLiveEvent getEvent() {
