@@ -9,6 +9,7 @@ public class TwitchApiClient {
   private static TwitchClient twitchClient;
   private Plugin plugin;
   private TwitchEventsManager eventsManager;
+  private static TwitchApiClient instance;
 
   public TwitchApiClient (Plugin plugin) {
     this.plugin = plugin;
@@ -16,6 +17,7 @@ public class TwitchApiClient {
     initializeClient();
     eventsManager = new TwitchEventsManager(plugin, this);
     plugin.getLogger().info("Client started.");
+    instance = this;
   }
 
   private void initializeClient() {
@@ -59,5 +61,9 @@ public class TwitchApiClient {
 
   public Plugin getPlugin() {
     return plugin;
+  }
+
+  public static TwitchApiClient getInstance() {
+    return instance;
   }
 }
