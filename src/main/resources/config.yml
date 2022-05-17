@@ -1,3 +1,8 @@
+credentials:
+  clientId: "" # Twitch App - Client ID, helix api
+  clientSecret: "" # Twitch App - Client Secret, helix api
+  identityProvider: "YOUR USERNAME BOT" # If DEFAULT - USERNAME, chat
+  accessToken: "YOUR BOT TOKEN" # If DEFAULT - TOKEN, chat
 widgets:
   helix: true
   chat: false

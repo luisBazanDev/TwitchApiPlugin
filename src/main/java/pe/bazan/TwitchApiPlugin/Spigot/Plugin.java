@@ -3,9 +3,10 @@ package pe.bazan.TwitchApiPlugin.Spigot;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Plugin extends JavaPlugin {
+  private static TwitchApiClient twitchApiClient;
   @Override
   public void onLoad() {
-
+    twitchApiClient = new TwitchApiClient(this);
   }
 
   @Override
@@ -14,5 +15,6 @@ public class Plugin extends JavaPlugin {
 
   @Override
   public void onDisable() {
+    twitchApiClient.getTwitchClient().close();
   }
 }
