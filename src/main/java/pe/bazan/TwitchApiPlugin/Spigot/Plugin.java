@@ -6,6 +6,7 @@ public class Plugin extends JavaPlugin {
   private static TwitchApiClient twitchApiClient;
   @Override
   public void onLoad() {
+    saveDefaultConfig();
     twitchApiClient = new TwitchApiClient(this);
   }
 
@@ -16,5 +17,9 @@ public class Plugin extends JavaPlugin {
   @Override
   public void onDisable() {
     twitchApiClient.getTwitchClient().close();
+  }
+
+  public static TwitchApiClient getTwitchApiClient() {
+    return twitchApiClient;
   }
 }

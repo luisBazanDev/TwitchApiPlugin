@@ -6,12 +6,16 @@ import com.github.twitch4j.TwitchClientBuilder;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class TwitchApiClient {
-  private TwitchClient twitchClient;
+  private static TwitchClient twitchClient;
   private Plugin plugin;
+  private TwitchEventsManager eventsManager;
 
   public TwitchApiClient (Plugin plugin) {
     this.plugin = plugin;
+    plugin.getLogger().info("Starting client...");
     initializeClient();
+    eventsManager = new TwitchEventsManager(plugin, this);
+    plugin.getLogger().info("Client started.");
   }
 
   private void initializeClient() {
@@ -45,11 +49,11 @@ public class TwitchApiClient {
     return twitchClient;
   }
 
-  public void joinChat(String channel) {
+  public static void joinChat(String channel) {
     twitchClient.getChat().joinChannel(channel);
   }
 
-  public void listenStream(String channel) {
+  public static void listenStream(String channel) {
     twitchClient.getClientHelper().enableStreamEventListener(channel);
   }
 

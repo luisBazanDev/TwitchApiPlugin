@@ -14,6 +14,7 @@ public class TwitchEventsManager {
   public TwitchEventsManager(Plugin plugin, TwitchApiClient twitchApiClient) {
     this.plugin = plugin;
     this.twitchApiClient = twitchApiClient;
+    registerEvents();
   }
 
   private void registerEvents() {
