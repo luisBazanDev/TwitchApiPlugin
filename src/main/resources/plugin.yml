@@ -1,4 +1,4 @@
-main: pe.bazan.TwitchApiPlugin.Spigot.Plugin
+main: pe.bazan.TwitchApiPlugin.Spigot.TwitchPlugin
 api-version: 1.13
 author: Luis Bazán
 name: TwitchApiPlugin
